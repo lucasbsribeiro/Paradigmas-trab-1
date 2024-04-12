@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/paradigmas-trab.iml" filepath="$PROJECT_DIR$/.idea/paradigmas-trab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/alal.iml" filepath="$PROJECT_DIR$/alal.iml" />
     </modules>
   </component>
 </project>
