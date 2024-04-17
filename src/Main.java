@@ -1,4 +1,6 @@
 import controle.ControleAluno;
+import controle.ControlePlano;
+
 import java.util.Scanner;
 
 public class Main {
@@ -6,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Selecione uma opcao:");
         System.out.println("1. Gerenciar alunos");
+        System.out.println("2. Gerenciar planos");
 
         Scanner scanner = new Scanner(System.in);
 
@@ -13,12 +16,10 @@ public class Main {
 
         switch (selected) {
             case 1:
-                gerenciarAlunos();
+                ControleAluno.gerenciarAlunos();
                 break;
             case 2:
-                System.out.println("ALAL");
-                System.out.println("123");
-
+                ControlePlano.gerenciarPlanos();
                 break;
             default:
                 break;
@@ -26,24 +27,5 @@ public class Main {
         scanner.close();
     }
 
-    public static void gerenciarAlunos() {
-        System.out.println("Selecione uma opcao:");
-        System.out.println("1. Cadastrar aluno");
 
-        Scanner scanner = new Scanner(System.in);
-
-        int selected = scanner.nextInt();
-
-        switch (selected) {
-            case 1:
-                ControleAluno.cadastrarAlunos();
-                break;
-            case 2:
-                System.out.println("teste");
-                break;
-            default:
-                break;
-        }
-        scanner.close();
-    }
 }

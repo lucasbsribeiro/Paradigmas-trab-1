@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class AlunoDAO {
-    public void cadastrarAluno(Aluno aluno) {
+    public static void inserirAlunoBD(Aluno aluno) {
 //
 //        String sql = "INSERT INTO ALUNO (CPF, NOME, DATA_NASCIMENTO) VALUES (?, ?, ?)";
 //

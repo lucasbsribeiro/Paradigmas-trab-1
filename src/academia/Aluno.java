@@ -1,5 +1,7 @@
 package academia;
 
+import DAO.AlunoDAO;
+
 import java.util.Date;
 import java.util.Scanner;
 
