@@ -21,7 +21,8 @@ public class Banco {
             Connection conn = Conexao.getConn();
             Statement sqlStatement = conn.createStatement();
 
-            sql = "CREATE TABLE IF NOT EXISTS aluno ( cpf VARCHAR(11) PRIMARY KEY, nome TEXT NOT NULL, aniversario DATE NOT NULL)";
+            sql = "CREATE TABLE IF NOT EXISTS aluno ( cpf VARCHAR(11) PRIMARY KEY, nome TEXT NOT NULL," +
+                    " aniversario DATE NOT NULL, comecoPlano DATE NOT NULL, cartao VARCHAR(13) NOT NULL)";
 
             sqlStatement.executeUpdate(sql);
             System.out.println("Tabela alunos criada");

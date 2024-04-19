@@ -3,9 +3,12 @@ import controle.ControlePlano;
 
 import java.util.Scanner;
 
+import conexao.Conexao;
+
 public class Main {
 
     public static void main(String[] args) {
+        Conexao.definicoesDoBanco();
         System.out.println("Selecione uma opcao:");
         System.out.println("1. Gerenciar alunos");
         System.out.println("2. Gerenciar planos");
