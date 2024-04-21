@@ -56,8 +56,10 @@ public class Conexao {
             sqlStatement.executeUpdate(sql);
             System.out.println("Tabela exercicios criada");
 
-//            sqlStatement.close();
-//            conn.close();
+            sql = "CREATE TABLE IF NOT EXISTS planos (code INT PRIMARY KEY AUTO_INCREMENT, nome TEXT NOT NULL, valor FLOAT NOT NULL)";
+            sqlStatement.executeUpdate(sql);
+            System.out.println("Tabela planos criada");
+
         }
         catch (SQLException e){
             System.out.println(e);
