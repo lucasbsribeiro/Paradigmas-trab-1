@@ -1,9 +1,17 @@
 package controle;
 
 import academia.Plano;
+import conexao.Conexao;
+
+import javax.swing.plaf.nimbus.State;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
+import java.sql.*;
 
 public class ControlePlano {
 
@@ -45,7 +53,7 @@ public class ControlePlano {
         }
         //scanner.close();
     }
-    private static void cadastrarPlano() {
+    private static void cadastrarPlano() { //TESTAR
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Digite o nome do novo plano:");
@@ -56,12 +64,20 @@ public class ControlePlano {
 
         Plano plano = new Plano(nome, valorMensal);
 
-        ListaPlanos.add(plano);
+        String sql = "INSERT INTO planos(nome, valor) VALUES('"+plano.nome+"', "+plano.valorMensal+");";
 
-        int index = ListaPlanos.size() - 1;
-        plano.setId(index);
+        try{
+            Connection conn = Conexao.getConn();
+            Statement sqlStatement = conn.createStatement();
 
-        System.out.println("Plano cadastrado com sucesso.");
+             sqlStatement.execute(sql);
+             System.out.println("Plano cadastrado com sucesso.");
+        }
+        catch (SQLException e){
+            System.out.println("Seu plano NAO FOI cadastrado corretamente.");
+        }
+
+
 
         //scanner.close();
     }
@@ -69,80 +85,65 @@ public class ControlePlano {
 
     private static void alterarPlano() {
         Scanner scanner = new Scanner(System.in);
-        int id;
-
         System.out.println("Digite o ID do plano que deseja alterar:");
-        id = scanner.nextInt();
+        int id = scanner.nextInt();
+        System.out.println("Qual o novo nome?");
+        String nome = scanner.next();
+        System.out.println("Qual o novo valor?");
+        float valor = scanner.nextFloat();
 
-        Plano plano = buscaPlanoPorId(id);
+        String sql = "UPDATE planos SET nome = '"+nome+"', valor = "+String.valueOf(valor)+
+                "WHERE code ="+String.valueOf(id);
 
-        if (plano != null) {
-            scanner.nextLine();
-            int selected;
+        try{
+            Connection conn = Conexao.getConn();
+            Statement sqlStatement = conn.createStatement();
 
-            System.out.println("Selecione um campo para alterar:");
-            System.out.println("1. Nome do plano");
-            System.out.println("2. Valor do plano");
-            selected = scanner.nextInt();
-
-            switch (selected) {
-                case 1:
-                    System.out.println("Digite o novo nome do plano:");
-                    String novoNome = scanner.nextLine();
-                    plano.setNomePlano(novoNome);
-                    break;
-                case 2:
-                    System.out.println("Digite o novo valor mensal do plano:");
-                    String novoValorMensal = scanner.nextLine();
-                    plano.setValorMensal(novoValorMensal);
-                    break;
-                default:
-                    System.out.println("Digite uma opcao valida.");
-                    break;
-            }
-            System.out.println("Plano alterado com sucesso.");
-        } else {
-            System.out.println("ID do plano não encontrado.");
+            sqlStatement.execute(sql);
+            System.out.println("Plano atualizado com sucesso");
         }
-
-        //scanner.close();
+        catch (SQLException e){
+            System.out.println(e);
+        }
     }
 
-    private static Plano buscaPlanoPorId(int id) {
-        for (Plano plano : ListaPlanos) {
-            if (plano.getId() == id) {
-                return plano;
-            }
-        }
-        return null;
-    }
     private static void excluirPlano() {
         Scanner scanner = new Scanner(System.in);
         int id;
 
         System.out.println("Digite o ID do plano que deseja excluir:");
         id = scanner.nextInt();
-
-        Plano plano = buscaPlanoPorId(id);
-
-        if(plano != null) {
-            boolean removido = ListaPlanos.remove(plano);
-
-            if (removido) {
-                System.out.println("Plano com ID " + id + " removido com sucesso.");
-            } else {
-                System.out.println("Ocorreu um erro ao remover o plano com ID " + id + ".");
-            }
+        String sql = "DELETE FROM planos WHERE code ="+String.valueOf(id)+";";
+        try{
+            Connection conn = Conexao.getConn();
+            Statement sqlStatement = conn.createStatement();
+            sqlStatement.execute(sql);
+            System.out.println("Plano deletado com sucesso.");
         }
-        else {
-            System.out.println("ID do plano não encontrado.");
+        catch (SQLException e){
+                System.out.println(e);
         }
     }
 
-    private static void listarPlanos() {
+    private static void listarPlanos() {//TESTAR
         System.out.println("Planos cadastrados:");
-        for (Plano plano : ListaPlanos) {
-            System.out.println("->ID: " + plano.getId() + ", Nome: " + plano.getNomePlano() + ", Valor mensal: " + plano.getValorMensal());
+        String sql = "SELECT * from academia.planos;";
+        ResultSet result;
+        try{
+            Connection conn = Conexao.getConn();
+            Statement sqlStatement = conn.createStatement();
+
+            result = sqlStatement.executeQuery(sql);
+            while(result.next()){
+                String id = String.valueOf(result.getInt("code"));
+                String nome = String.valueOf(result.getString("nome"));
+                String valor = String.valueOf(result.getFloat("valor"));
+                System.out.println("ID: "+id+", Nome: "+nome+", Valor mensal: "+valor);
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e);
+            result = null;
         }
     }
 }

@@ -3,9 +3,9 @@ package academia;
 import java.util.Scanner;
 
 public class Plano {
-    private int id;
-    private String nome;
-    private String valorMensal;
+    public int id;
+    public String nome;
+    public String valorMensal;
 
     public Plano(String nome, String valorMensal) {
         this.id = 0;

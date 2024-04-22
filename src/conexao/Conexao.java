@@ -1,11 +1,9 @@
 package conexao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import academia.Aluno;
+import academia.Plano;
 
 public class Conexao {
     private static final String url = "jdbc:mysql://localhost:3306/academia";
@@ -60,6 +58,12 @@ public class Conexao {
             sqlStatement.executeUpdate(sql);
             System.out.println("Tabela planos criada");
 
+            sql = "CREATE TABLE IF NOT EXISTS planos_aluno(comecoPlano DATE NOT NULL, cartao VARCHAR(13), alunoCpf VARCHAR(11), " +
+                    "codPlano INT, FOREIGN KEY(alunoCpf) " +
+                    "REFERENCES aluno(cpf), FOREIGN KEY(codPlano) REFERENCES planos(code));";
+            sqlStatement.executeUpdate(sql);
+            System.out.println("Tabela planos_aluno criada");
+
         }
         catch (SQLException e){
             System.out.println(e);
@@ -67,18 +71,14 @@ public class Conexao {
 
     }
     public static void insere_aluno(Aluno objeto){
-        String comecoPlano;
-        String cartao;
         String sql = "INSERT INTO academia.aluno(cpf, nome, aniversario) " +
                 "VALUES('%s', '%s', '%s');";
 
 
         sql = String.format(sql, objeto.cpf, objeto.nome, objeto.aniversario);
-        System.out.println(sql);
         try{
             Connection conn = Conexao.getConn();
             Statement sqlStatement = conn.createStatement();
-
 
             sqlStatement.executeUpdate(sql);
             System.out.println("Aluno inserido no banco de dados.");
@@ -88,7 +88,5 @@ public class Conexao {
         catch(SQLException e){
             System.out.println(e);
         }
-
-
     }
 }
