@@ -1,15 +1,20 @@
 package controle;
 
+import DAO.ExercicioDAO;
+import DAO.MusculoDAO;
 import academia.Musculo;
 import academia.Plano;
+import conexao.Conexao;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ControleMusculo {
-    private static List<Musculo> ListaMusculos = new ArrayList<>();
-
     public static void gerenciarMusculos() {
         Scanner scanner = new Scanner(System.in);
         boolean ligado = true;
@@ -32,7 +37,7 @@ public class ControleMusculo {
                     excluirMusculo();
                     break;
                 case 3:
-                    listarMusculos();
+                    MusculoDAO.listarMusculosDAO();
                     break;
                 case 4:
                     ligado = false;
@@ -51,24 +56,10 @@ public class ControleMusculo {
 
         Musculo musculo = new Musculo(nome);
 
-        ListaMusculos.add(musculo);
-
-        int index = ListaMusculos.size() - 1;
-        musculo.setIdMusculo(index);
-
-        System.out.println("Músculo cadastrado com sucesso.");
-
+        MusculoDAO.cadastrarMusculoDAO(musculo);
         //scanner.close();
     }
 
-    private static Musculo buscaMusculoPorId(int id) {
-        for (Musculo musculo : ListaMusculos) {
-            if (musculo.getIdMusculo() == id) {
-                return musculo;
-            }
-        }
-        return null;
-    }
     private static void excluirMusculo() {
         Scanner scanner = new Scanner(System.in);
         int id;
@@ -76,26 +67,8 @@ public class ControleMusculo {
         System.out.println("Digite o ID do músculo que deseja excluir:");
         id = scanner.nextInt();
 
-        Musculo musculo = buscaMusculoPorId(id);
-
-        if(musculo != null) {
-            boolean removido = ListaMusculos.remove(musculo);
-
-            if (removido) {
-                System.out.println("Musculo com ID " + id + " removido com sucesso.");
-            } else {
-                System.out.println("Ocorreu um erro ao remover o músculo com ID " + id + ".");
-            }
-        }
-        else {
-            System.out.println("ID do músculo não encontrado.");
-        }
-    }
-    private static void listarMusculos() {
-        System.out.println("Músculos cadastrados:");
-        for (Musculo musculo : ListaMusculos) {
-            System.out.println("->ID: " + musculo.getIdMusculo() + ", Nome: " + musculo.getNomeMusculo());
-        }
+        MusculoDAO.excluirDeExercicioMusculosDAO(id);
+        MusculoDAO.excluirDeMusculosDAO(id);
     }
 }
 

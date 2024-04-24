@@ -25,6 +25,7 @@ public class Conexao {
             return null;
         }
     }
+
     public static void definicoesDoBanco(){
         String sql;
         try {//Cria database
@@ -49,12 +50,30 @@ public class Conexao {
             sqlStatement.executeUpdate(sql);
             System.out.println("Tabela alunos criada");
 
-            sql = "CREATE TABLE IF NOT EXISTS exercicios (num INT PRIMARY KEY AUTO_INCREMENT, nome TEXT NOT NULL, musculos TEXT NOT NULL)";
+            sql = "CREATE TABLE IF NOT EXISTS exercicios (num INT PRIMARY KEY AUTO_INCREMENT, nome TEXT NOT NULL, " +
+                    "series INT NOT NULL, minReps INT NOT NULL, maxReps INT NOT NULL, carga FLOAT NOT NULL, tempoDescanso INT NOT NULL)";
 
             sqlStatement.executeUpdate(sql);
             System.out.println("Tabela exercicios criada");
 
-            sql = "CREATE TABLE IF NOT EXISTS planos (code INT PRIMARY KEY AUTO_INCREMENT, nome TEXT NOT NULL, valor FLOAT NOT NULL)";
+            sql = "CREATE TABLE IF NOT EXISTS musculos ( id INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(30) NOT NULL)";
+
+            sqlStatement.executeUpdate(sql);
+            System.out.println("Tabela musculos criada");
+
+            sql = "CREATE TABLE IF NOT EXISTS exercicio_musculos (" +
+                    "id_exercicio INT," +
+                    "id_musculo INT," +
+                    "FOREIGN KEY (id_exercicio) REFERENCES exercicios(num)," +
+                    "FOREIGN KEY (id_musculo) REFERENCES musculos(id)," +
+                    "PRIMARY KEY (id_exercicio, id_musculo)" +
+                    ")";
+
+            sqlStatement.executeUpdate(sql);
+            System.out.println("Tabela exercicio_musculos criada");
+
+
+            sql = "CREATE TABLE IF NOT EXISTS planos (code INT PRIMARY KEY AUTO_INCREMENT, nome TEXT NOT NULL, valor TEXT NOT NULL)";
             sqlStatement.executeUpdate(sql);
             System.out.println("Tabela planos criada");
 

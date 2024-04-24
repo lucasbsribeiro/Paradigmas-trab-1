@@ -64,7 +64,8 @@ public class ControlePlano {
 
         Plano plano = new Plano(nome, valorMensal);
 
-        String sql = "INSERT INTO planos(nome, valor) VALUES('"+plano.nome+"', "+plano.valorMensal+");";
+        String sql = "INSERT INTO planos(nome, valor) VALUES('%s', '%s');";
+        sql = String.format(sql, plano.getNomePlano(), plano.getValorMensal());
 
         try{
             Connection conn = Conexao.getConn();
@@ -76,9 +77,6 @@ public class ControlePlano {
         catch (SQLException e){
             System.out.println("Seu plano NAO FOI cadastrado corretamente.");
         }
-
-
-
         //scanner.close();
     }
 
@@ -87,19 +85,21 @@ public class ControlePlano {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite o ID do plano que deseja alterar:");
         int id = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("Qual o novo nome?");
-        String nome = scanner.next();
+        String nome = scanner.nextLine();
         System.out.println("Qual o novo valor?");
-        float valor = scanner.nextFloat();
+        String valor = scanner.nextLine();
 
-        String sql = "UPDATE planos SET nome = '"+nome+"', valor = "+String.valueOf(valor)+
-                "WHERE code ="+String.valueOf(id);
+        String sql = "UPDATE planos SET nome = ?, valor = ? WHERE code = ?";
 
-        try{
-            Connection conn = Conexao.getConn();
-            Statement sqlStatement = conn.createStatement();
-
-            sqlStatement.execute(sql);
+        try
+            (Connection conn = Conexao.getConn();
+            PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, nome);
+            statement.setString(2, valor);
+            statement.setInt(3, id);
+            statement.execute();
             System.out.println("Plano atualizado com sucesso");
         }
         catch (SQLException e){
@@ -137,7 +137,7 @@ public class ControlePlano {
             while(result.next()){
                 String id = String.valueOf(result.getInt("code"));
                 String nome = String.valueOf(result.getString("nome"));
-                String valor = String.valueOf(result.getFloat("valor"));
+                String valor = String.valueOf(result.getString("valor"));
                 System.out.println("ID: "+id+", Nome: "+nome+", Valor mensal: "+valor);
             }
         }
