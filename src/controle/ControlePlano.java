@@ -3,6 +3,9 @@ package controle;
 import academia.Plano;
 import conexao.Conexao;
 
+
+import static DAO.PlanoDAO.*;
+
 import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,9 +16,9 @@ import java.util.Scanner;
 import java.util.List;
 import java.sql.*;
 
-public class ControlePlano {
 
-    private static List<Plano> ListaPlanos = new ArrayList<>();
+
+public class ControlePlano {
     public static void gerenciarPlanos() {
         Scanner scanner = new Scanner(System.in);
         boolean ligado = true;
@@ -64,22 +67,10 @@ public class ControlePlano {
 
         Plano plano = new Plano(nome, valorMensal);
 
-        String sql = "INSERT INTO planos(nome, valor) VALUES('%s', '%s');";
-        sql = String.format(sql, plano.getNomePlano(), plano.getValorMensal());
+        cadastrarPlanoDAO(plano);
 
-        try{
-            Connection conn = Conexao.getConn();
-            Statement sqlStatement = conn.createStatement();
-
-             sqlStatement.execute(sql);
-             System.out.println("Plano cadastrado com sucesso.");
-        }
-        catch (SQLException e){
-            System.out.println("Seu plano NAO FOI cadastrado corretamente.");
-        }
         //scanner.close();
     }
-
 
     private static void alterarPlano() {
         Scanner scanner = new Scanner(System.in);
@@ -90,21 +81,7 @@ public class ControlePlano {
         String nome = scanner.nextLine();
         System.out.println("Qual o novo valor?");
         String valor = scanner.nextLine();
-
-        String sql = "UPDATE planos SET nome = ?, valor = ? WHERE code = ?";
-
-        try
-            (Connection conn = Conexao.getConn();
-            PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, nome);
-            statement.setString(2, valor);
-            statement.setInt(3, id);
-            statement.execute();
-            System.out.println("Plano atualizado com sucesso");
-        }
-        catch (SQLException e){
-            System.out.println(e);
-        }
+        alterarPlanoDAO(id, nome, valor);
     }
 
     private static void excluirPlano() {
@@ -113,27 +90,13 @@ public class ControlePlano {
 
         System.out.println("Digite o ID do plano que deseja excluir:");
         id = scanner.nextInt();
-        String sql = "DELETE FROM planos WHERE code ="+String.valueOf(id)+";";
-        try{
-            Connection conn = Conexao.getConn();
-            Statement sqlStatement = conn.createStatement();
-            sqlStatement.execute(sql);
-            System.out.println("Plano deletado com sucesso.");
-        }
-        catch (SQLException e){
-                System.out.println(e);
-        }
+        excluirPlanoDAO(id);
     }
 
-    private static void listarPlanos() {//TESTAR
+    private static void listarPlanos() {
         System.out.println("Planos cadastrados:");
-        String sql = "SELECT * from academia.planos;";
-        ResultSet result;
+        ResultSet result = listarPlanoDAO();
         try{
-            Connection conn = Conexao.getConn();
-            Statement sqlStatement = conn.createStatement();
-
-            result = sqlStatement.executeQuery(sql);
             while(result.next()){
                 String id = String.valueOf(result.getInt("code"));
                 String nome = String.valueOf(result.getString("nome"));
@@ -141,9 +104,8 @@ public class ControlePlano {
                 System.out.println("ID: "+id+", Nome: "+nome+", Valor mensal: "+valor);
             }
         }
-        catch (SQLException e){
+        catch(Exception e){
             System.out.println(e);
-            result = null;
         }
     }
 }

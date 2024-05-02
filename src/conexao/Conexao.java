@@ -89,23 +89,18 @@ public class Conexao {
         }
 
     }
-    public static void insere_aluno(Aluno objeto){
-        String sql = "INSERT INTO academia.aluno(cpf, nome, aniversario) " +
-                "VALUES('%s', '%s', '%s');";
 
-
-        sql = String.format(sql, objeto.cpf, objeto.nome, objeto.aniversario);
+    public static ResultSet query(String sql){
+        ResultSet result;
         try{
             Connection conn = Conexao.getConn();
             Statement sqlStatement = conn.createStatement();
-
-            sqlStatement.executeUpdate(sql);
-            System.out.println("Aluno inserido no banco de dados.");
-//            sqlStatement.close();
-//            conn.close();
+            result = sqlStatement.executeQuery(sql);
         }
-        catch(SQLException e){
+        catch (SQLException e){
             System.out.println(e);
+            result = null;
         }
+        return result;
     }
 }
