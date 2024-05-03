@@ -12,20 +12,20 @@ import java.util.Scanner;
 public class ControleExercicio {
     public static void gerenciarExercicios() {
         Scanner scanner = new Scanner(System.in);
-        boolean ligado = true;
+        int selecao = 99;
 
-        while(ligado) {
+        while(selecao!=0) {
             System.out.println();
+            System.out.println("0. Voltar");
             System.out.println("Selecione uma opção:");
             System.out.println("1. Cadastrar exercício");
             System.out.println("2. Alterar exercício");
             System.out.println("3. Excluir exercício");
             System.out.println("4. Listar exercícios");
-            System.out.println("5. Voltar ao menu");
 
-            int selected = scanner.nextInt();
+            selecao = scanner.nextInt();
 
-            switch (selected) {
+            switch (selecao) {
                 case 1:
                     cadastrarExercicio();
                     break;
@@ -38,14 +38,8 @@ public class ControleExercicio {
                 case 4:
                     ExercicioDAO.listarExerciciosDAO();
                     break;
-                case 5:
-                    ligado = false;
-                    break;
-                default:
-                    break;
             }
         }
-        //scanner.close();
     }
 
     private static void cadastrarExercicio() {

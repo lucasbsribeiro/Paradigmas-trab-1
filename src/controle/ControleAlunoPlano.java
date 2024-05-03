@@ -14,23 +14,25 @@ import static conexao.Conexao.query;
 
 public class ControleAlunoPlano {
     public static void gerenciarAlunoPlano(){
-        System.out.println("Selecione uma opção:");
-        System.out.println("1. Adicionar plano a aluno");
-        System.out.println("2. Deletar plano de aluno");
-
         Scanner scanner = new Scanner(System.in);
+        int selecao = 99;
+        while(selecao!=0) {
+            System.out.println("Selecione uma opção:");
+            System.out.println("0. Voltar");
+            System.out.println("1. Adicionar plano a aluno");
+            System.out.println("2. Deletar plano de aluno");
 
-        int selected = scanner.nextInt();
+            selecao = scanner.nextInt();
 
-        switch (selected) {
-            case 1:
-                cadastrarPlanoAluno();
-                break;
-            case 2:
-                deletarPlanoAluno();
-                break;
+            switch (selecao) {
+                case 1:
+                    cadastrarPlanoAluno();
+                    break;
+                case 2:
+                    deletarPlanoAluno();
+                    break;
+            }
         }
-
     }
     private static void cadastrarPlanoAluno(){
         String cpf;

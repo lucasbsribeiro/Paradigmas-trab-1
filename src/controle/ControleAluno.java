@@ -16,7 +16,10 @@ import conexao.Conexao;
 
 public class ControleAluno {
     public static void gerenciarAlunos() {
+        int selecao = 99;
+        while(selecao != 0){
         System.out.println("Selecione uma opção:");
+        System.out.println("0. Voltar");
         System.out.println("1. Cadastrar aluno");
         System.out.println("2. Busca por CPF");
         System.out.println("3. Busca por nome");
@@ -26,24 +29,25 @@ public class ControleAluno {
 
         Scanner scanner = new Scanner(System.in);
 
-        int selected = scanner.nextInt();
+        selecao = scanner.nextInt();
 
-        switch (selected) {
-            case 1:
-                cadastrarAlunos();
-                break;
-            case 2:
-                buscaAlunoCpf();
-                break;
-            case 3:
-                buscaAlunoNome();
-                break;
-            case 4:
-                deletaAluno();
-            case 5:
-                atualizaAluno();
-            case 6:
-                atribuirPlano();
+            switch (selecao) {
+                case 1:
+                    cadastrarAlunos();
+                    break;
+                case 2:
+                    buscaAlunoCpf();
+                    break;
+                case 3:
+                    buscaAlunoNome();
+                    break;
+                case 4:
+                    deletaAluno();
+                case 5:
+                    atualizaAluno();
+                case 6:
+                    atribuirPlano();
+            }
         }
     }
 

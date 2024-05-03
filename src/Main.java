@@ -11,6 +11,7 @@ public class Main {
         int selecao = 99;
         while(selecao != 0) {
             System.out.println("Selecione uma opcao:");
+            System.out.println("0. Sair");
             System.out.println("1. Gerenciar alunos");
             System.out.println("2. Gerenciar planos");
             System.out.println("3. Gerenciar exercícios");
@@ -34,7 +35,6 @@ public class Main {
                     break;
                 case 5:
                     ControleAlunoPlano.gerenciarAlunoPlano();
-                default:
                     break;
             }
         }

@@ -17,19 +17,20 @@ import java.util.Scanner;
 public class ControleMusculo {
     public static void gerenciarMusculos() {
         Scanner scanner = new Scanner(System.in);
-        boolean ligado = true;
+        int selecao = 99;;
 
-        while (ligado) {
+        while (selecao!=0) {
             System.out.println();
             System.out.println("Selecione uma opção:");
+            System.out.println("0. Voltar");
             System.out.println("1. Cadastrar músculo");
             System.out.println("2. Excluir músculo");
             System.out.println("3. Listar músculos");
             System.out.println("4. Voltar ao menu");
 
-            int selected = scanner.nextInt();
+            selecao = scanner.nextInt();
 
-            switch (selected) {
+            switch (selecao) {
                 case 1:
                     cadastrarMusculo();
                     break;
@@ -38,11 +39,6 @@ public class ControleMusculo {
                     break;
                 case 3:
                     MusculoDAO.listarMusculosDAO();
-                    break;
-                case 4:
-                    ligado = false;
-                    break;
-                default:
                     break;
             }
         }

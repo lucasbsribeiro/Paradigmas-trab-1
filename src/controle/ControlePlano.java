@@ -21,20 +21,21 @@ import java.sql.*;
 public class ControlePlano {
     public static void gerenciarPlanos() {
         Scanner scanner = new Scanner(System.in);
-        boolean ligado = true;
+        int selecao = 99;
 
-        while(ligado) {
+        while(selecao != 0) {
             System.out.println();
             System.out.println("Selecione uma opção:");
+            System.out.println("0. Voltar");
             System.out.println("1. Cadastrar plano");
             System.out.println("2. Alterar plano");
             System.out.println("3. Excluir plano");
             System.out.println("4. Listar planos");
             System.out.println("5. Voltar ao menu");
 
-            int selected = scanner.nextInt();
+            selecao = scanner.nextInt();
 
-            switch (selected) {
+            switch (selecao) {
                 case 1:
                     cadastrarPlano();
                     break;
@@ -47,14 +48,8 @@ public class ControlePlano {
                 case 4:
                     listarPlanos();
                     break;
-                case 5:
-                    ligado = false;
-                    break;
-                default:
-                    break;
             }
         }
-        //scanner.close();
     }
     private static void cadastrarPlano() { //TESTAR
         Scanner scanner = new Scanner(System.in);
@@ -68,8 +63,6 @@ public class ControlePlano {
         Plano plano = new Plano(nome, valorMensal);
 
         cadastrarPlanoDAO(plano);
-
-        //scanner.close();
     }
 
     private static void alterarPlano() {
