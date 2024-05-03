@@ -73,6 +73,23 @@ public class Conexao {
             System.out.println("Tabela exercicio_musculos criada");
 
 
+            sql = "CREATE TABLE IF NOT EXISTS treinos ( id INT PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(30) NOT NULL)";
+
+            sqlStatement.executeUpdate(sql);
+            System.out.println("Tabela treinos criada");
+
+            sql = "CREATE TABLE IF NOT EXISTS treino_exercicios (" +
+                    "id_treino INT," +
+                    "id_exercicio INT," +
+                    "FOREIGN KEY (id_treino) REFERENCES treinos(id)," +
+                    "FOREIGN KEY (id_exercicio) REFERENCES exercicios(num)," +
+                    "PRIMARY KEY (id_treino, id_exercicio)" +
+                    ")";
+
+            sqlStatement.executeUpdate(sql);
+            System.out.println("Tabela treino_exercicios criada");
+
+
             sql = "CREATE TABLE IF NOT EXISTS planos (code INT PRIMARY KEY AUTO_INCREMENT, nome TEXT NOT NULL, valor TEXT NOT NULL)";
             sqlStatement.executeUpdate(sql);
             System.out.println("Tabela planos criada");

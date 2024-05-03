@@ -17,6 +17,7 @@ public class Main {
             System.out.println("3. Gerenciar exercícios");
             System.out.println("4. Gerenciar músculos");
             System.out.println("5. Gerenciar planos de alunos");
+            System.out.println("6. Gerenciar treinos");
 
             selecao = scanner.nextInt();
 
@@ -35,6 +36,10 @@ public class Main {
                     break;
                 case 5:
                     ControleAlunoPlano.gerenciarAlunoPlano();
+                    break;
+                case 6:
+                    ControleTreino.gerenciarTreino();
+                default:
                     break;
             }
         }
