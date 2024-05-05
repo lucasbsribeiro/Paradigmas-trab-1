@@ -62,7 +62,7 @@ public class ControleAluno {
 		System.out.println("Cpf de "+nome+": ");
 		cpf = entrada.next();
 		System.out.println("Data de nascimento (YYYY-MM-DD) de "+nome+": ");
-		aniversario  =entrada.next();
+		aniversario  = entrada.next();
 
 		Date aniverDate = Date.valueOf(aniversario);
 

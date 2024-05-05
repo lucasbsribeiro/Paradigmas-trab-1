@@ -52,7 +52,6 @@ public class PlanoAlunoDAO {
         }
         return retornos;
     }
-
     public static void deletaAlunoPlano(String cpf){
         String sql = "DELETE FROM planos_aluno WHERE alunoCpf = '%s'";
         sql = String.format(sql, cpf);
@@ -64,5 +63,12 @@ public class PlanoAlunoDAO {
         catch (Exception e){
             System.out.println(e);
         }
+    }
+    public static boolean checaAlunoPlano(String cpf){
+        ArrayList checa = retornaAlunoPlano(cpf);
+        if(checa == null){
+            return false;
+        }
+        return true;
     }
 }

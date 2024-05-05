@@ -18,6 +18,7 @@ public class Main {
             System.out.println("4. Gerenciar músculos");
             System.out.println("5. Gerenciar planos de alunos");
             System.out.println("6. Gerenciar treinos");
+            System.out.println("7. Gerenciar treinos diários");
 
             selecao = scanner.nextInt();
 
@@ -39,6 +40,9 @@ public class Main {
                     break;
                 case 6:
                     ControleTreino.gerenciarTreino();
+                    break;
+                case 7:
+                    ControleTreinoDiario.gerenciarTreinoDiario();
                 default:
                     break;
             }

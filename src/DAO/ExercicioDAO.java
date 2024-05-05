@@ -49,7 +49,6 @@ public class ExercicioDAO
         }
         return idExercicio;
     }
-
     public static void inserirRelacaoExercicioMusculoDAO(Exercicio exercicio, int idMusculo) {
         String sql = "INSERT INTO academia.exercicio_musculos (id_exercicio, id_musculo) VALUES (?, ?);";
 
@@ -139,5 +138,48 @@ public class ExercicioDAO
         } catch (SQLException e) {
             System.out.println("O exercício NÃO FOI alterado corretamente." + e);
         }
+    }
+    public static ResultSet encontraExerciciosTreino(int idTreino){
+        String sql = "SELECT id_exercicio FROM academia.treino_exercicios WHERE id_treino = %s";
+        sql = String.format(sql, String.valueOf(idTreino));
+        ResultSet idExercicios = null;
+        try{
+            idExercicios = Conexao.query(sql); //RETORNA id dos exercicios do treino;
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return idExercicios;
+    }
+    public static void listarDadosExercicio(int idExercicio){
+        String sql = "SELECT * from exercicios where num = "+idExercicio+";";
+        ResultSet dadosExercicios = Conexao.query(sql);
+        try{
+            while(dadosExercicios.next()){
+                System.out.println("\nExercicio: "+dadosExercicios.getString("nome"));
+                System.out.println("Quantidade de series: "+dadosExercicios.getInt("series"));
+                System.out.println("Quantidade mínima de repetições: "+dadosExercicios.getInt("minReps"));
+                System.out.println("Quantidade máxima de repetições: "+dadosExercicios.getInt("maxReps"));
+                System.out.println("Carga: "+dadosExercicios.getFloat("carga"));
+                System.out.println("Tempo de descanso: \n"+dadosExercicios.getInt("tempoDescanso"));
+            }
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    public static float retornaCarga(int idExercicio){
+        float carga = -1;
+        String sql = "SELECT carga from exercicios WHERE num = "+idExercicio+";";
+        try{
+            ResultSet result = Conexao.query(sql);
+            result.next();
+            carga = result.getFloat("carga");
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return carga;
+
     }
 }
