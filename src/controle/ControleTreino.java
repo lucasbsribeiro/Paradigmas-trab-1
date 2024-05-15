@@ -12,7 +12,6 @@ public class ControleTreino {
         int selecao = 99;
 
         while (selecao != 0) {
-            System.out.println();
             System.out.println("Selecione uma opção:");
             System.out.println("0. Sair");
             System.out.println("1. Cadastrar treino");

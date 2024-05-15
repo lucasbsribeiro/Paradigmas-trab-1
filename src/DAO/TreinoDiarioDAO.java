@@ -5,10 +5,23 @@ import conexao.Conexao;
 import java.sql.*;
 
 public class TreinoDiarioDAO {
-    public static void cadastraExercicioTreino(String cpf, int id_treino, int id_exercicio, float carga, Date dia){
+    public static void cadastraTreino(String cpf, Date dia){
+        String sql = "INSERT INTO treino_diario(dia, alunoCpf) VALUES('%s', '%s');";
+        sql = String.format(sql, dia, cpf);
+        try{
+            Connection con = Conexao.getConn();
+            Statement sqlStatement = con.createStatement();
+            sqlStatement.executeUpdate(sql);
+        }
+        catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+
+    public static void cadastraExercicioTreino(String cpf, int id_exercicio, float carga, Date dia){
         String sql = "INSERT INTO exercicio_aluno(dia, alunoCpf, codExercicio, cargaPersonalizada) " +
                 "VALUES('%s', '%s', %s, %s);";
-        sql = String.format(sql, dia, cpf, id_treino, id_exercicio, carga);
+        sql = String.format(sql, dia, cpf, id_exercicio, carga);
         try{
             Connection con = Conexao.getConn();
             Statement sqlStatement = con.createStatement();
@@ -37,14 +50,14 @@ public class TreinoDiarioDAO {
     }
 
     public static ResultSet cargasExercicio(String cpf, int codExercicio){
-        String sql = "SELECT cargaPersonalizada, dia FROM exercicio_aluno WHERE alunoCpf = '%s', codExercicio = %s ORDER BY DATE;";
+        String sql = "SELECT cargaPersonalizada, dia FROM exercicio_aluno WHERE alunoCpf = '%s' AND codExercicio = %s ORDER BY dia;";
         sql = String.format(sql, cpf, codExercicio);
         ResultSet result = null;
         try{
             result = Conexao.query(sql);
         }
         catch(Exception e){
-            System.out.println();
+            System.out.println(e);
         }
         return result;
     }

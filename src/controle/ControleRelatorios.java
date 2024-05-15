@@ -43,15 +43,17 @@ public class ControleRelatorios {
         System.out.println("Data final:");
         data = scanner.nextLine();
         Date data2 = Date.valueOf(data);
-        while(data1 != data2){
-            System.out.println("Dias em que o aluno esteve na academia:\n");
+        System.out.println("Dias em que o aluno esteve na academia:\n");
+
+        while(data1.before(data2)){
             if(TreinoDiarioDAO.checaAlunoData(cpf, data1)){
                 System.out.println(data1);
             }
-//            data1 = data1..;
-            data1 = data2; //retirar isso
+            data1 = Date.valueOf(data1.toLocalDate().plusDays(1));
         }
-
+        if(TreinoDiarioDAO.checaAlunoData(cpf, data1)){
+            System.out.println(data1);
+        }
     }
     private static void evolucao(){
         Scanner scanner = new Scanner(System.in);

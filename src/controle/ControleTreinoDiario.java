@@ -47,6 +47,8 @@ public class ControleTreinoDiario {
         String diaS = scanner.nextLine();
         Date dia = Date.valueOf(diaS);
 
+        TreinoDiarioDAO.cadastraTreino(cpf, dia);
+
         System.out.println("Qual o ID do treino desejado?");
         TreinoDAO.listarTreinosDAO();
         int id_treino = scanner.nextInt(); //FAZER CONFERIR SE IDTREINO EXISTE
@@ -91,11 +93,11 @@ public class ControleTreinoDiario {
         System.out.println("Qual será a carga de hoje?");
         Scanner scanner = new Scanner(System.in);
         float carga = scanner.nextFloat();
-        TreinoDiarioDAO.cadastraExercicioTreino(cpf, idTreino, idExercicio, carga, dia);
+        TreinoDiarioDAO.cadastraExercicioTreino(cpf, idExercicio, carga, dia);
     }
     private static void cargaNormal(int idExercicio, int idTreino, Date dia, String cpf){
         float carga;
         carga = retornaCarga(idExercicio);
-        TreinoDiarioDAO.cadastraExercicioTreino(cpf, idTreino,idExercicio, carga, dia);
+        TreinoDiarioDAO.cadastraExercicioTreino(cpf,idExercicio, carga, dia);
     }
 }

@@ -24,7 +24,6 @@ public class ControlePlano {
         int selecao = 99;
 
         while(selecao != 0) {
-            System.out.println();
             System.out.println("Selecione uma opção:");
             System.out.println("0. Voltar");
             System.out.println("1. Cadastrar plano");
