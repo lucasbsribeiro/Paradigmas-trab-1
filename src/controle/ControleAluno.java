@@ -18,36 +18,37 @@ public class ControleAluno {
     public static void gerenciarAlunos() {
         int selecao = 99;
         while(selecao != 0){
-        System.out.println("Selecione uma opção:");
-        System.out.println("0. Voltar");
-        System.out.println("1. Cadastrar aluno");
-        System.out.println("2. Busca por CPF");
-        System.out.println("3. Busca por nome");
-        System.out.println("4. Deletar aluno");
-        System.out.println("5. Atualizar dados pessoais");
-        System.out.println("6. Cadastrar plano para aluno");
+            System.out.println();
+            System.out.println("Selecione uma opção:");
+            System.out.println("0. Voltar");
+            System.out.println("1. Cadastrar aluno");
+            System.out.println("2. Busca por CPF");
+            System.out.println("3. Busca por nome");
+            System.out.println("4. Deletar aluno");
+            System.out.println("5. Atualizar dados pessoais");
+            System.out.println("6. Cadastrar plano para aluno");
 
-        Scanner scanner = new Scanner(System.in);
+            Scanner scanner = new Scanner(System.in);
 
-        selecao = scanner.nextInt();
+            selecao = scanner.nextInt();
 
-            switch (selecao) {
-                case 1:
-                    cadastrarAlunos();
-                    break;
-                case 2:
-                    buscaAlunoCpf();
-                    break;
-                case 3:
-                    buscaAlunoNome();
-                    break;
-                case 4:
-                    deletaAluno();
-                case 5:
-                    atualizaAluno();
-                case 6:
-                    atribuirPlano();
-            }
+                switch (selecao) {
+                    case 1:
+                        cadastrarAlunos();
+                        break;
+                    case 2:
+                        buscaAlunoCpf();
+                        break;
+                    case 3:
+                        buscaAlunoNome();
+                        break;
+                    case 4:
+                        deletaAluno();
+                    case 5:
+                        atualizaAluno();
+                    case 6:
+                        atribuirPlano();
+                }
         }
     }
 
@@ -94,7 +95,7 @@ public class ControleAluno {
         String cpf = scanner.nextLine();
         System.out.println("Qual o novo nome?");
         String nome = scanner.nextLine();
-        System.out.println("Qual o novo aniversario (YYYY-MM-DD)?");
+        System.out.println("Qual o novo aniversario? (YYYY-MM-DD)");
         String niver = scanner.next();
         Date aniversario = Date.valueOf(niver);
         DAO.AlunoDAO.atualizaAluno(cpf, nome, aniversario);

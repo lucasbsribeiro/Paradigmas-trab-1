@@ -20,6 +20,7 @@ public class ControleMusculo {
         int selecao = 99;;
 
         while (selecao!=0) {
+            System.out.println();
             System.out.println("Selecione uma opção:");
             System.out.println("0. Voltar");
             System.out.println("1. Cadastrar músculo");
@@ -58,7 +59,7 @@ public class ControleMusculo {
     private static void excluirMusculo() {
         Scanner scanner = new Scanner(System.in);
         int id;
-
+        MusculoDAO.listarMusculosDAO();
         System.out.println("Digite o ID do músculo que deseja excluir:");
         id = scanner.nextInt();
 

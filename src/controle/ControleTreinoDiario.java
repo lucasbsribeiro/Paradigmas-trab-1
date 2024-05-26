@@ -14,6 +14,7 @@ public class ControleTreinoDiario {
         Scanner scanner = new Scanner(System.in);
         int selecao = 99;
         while (selecao !=0){
+            System.out.println();
             System.out.println("Selecione uma opção:");
             System.out.println("0. Sair");
             System.out.println("1. Começar novo treino");
@@ -43,7 +44,7 @@ public class ControleTreinoDiario {
         else if(!PlanoAlunoDAO.checaAlunoPlano(cpf)){
             System.out.println("Nenhum plano cadastrado para o aluno.");
         }
-        System.out.println("Qual o dia do treino?");
+        System.out.println("Qual o dia do treino? (YYYY-MM-DD)");
         String diaS = scanner.nextLine();
         Date dia = Date.valueOf(diaS);
 

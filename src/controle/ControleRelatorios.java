@@ -13,6 +13,7 @@ public class ControleRelatorios {
         Scanner scanner = new Scanner(System.in);
         int selecao = 99;
         while(selecao!=0){
+            System.out.println();
             System.out.println("Selecione uma opção:");
             System.out.println("0. Voltar");
             System.out.println("1. Presença entre datas na academia");
@@ -69,7 +70,7 @@ public class ControleRelatorios {
 
         try{
             while(resultadoQuery.next()){
-                System.out.println(resultadoQuery.getDate("dia")+":"+resultadoQuery.getFloat("cargaPersonalizada"));
+                System.out.println("Data: " + resultadoQuery.getDate("dia") + "  " + "Carga: " + resultadoQuery.getFloat("cargaPersonalizada"));
             }
         }
         catch(Exception e){

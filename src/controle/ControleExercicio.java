@@ -15,6 +15,7 @@ public class ControleExercicio {
         int selecao = 99;
 
         while(selecao!=0) {
+            System.out.println();
             System.out.println("Selecione uma opção:");
             System.out.println("0. Voltar");
             System.out.println("1. Cadastrar exercício");
@@ -69,8 +70,8 @@ public class ControleExercicio {
         exercicio.setIdExercicio(ExercicioDAO.encontraIdDAO(exercicio));
 
         while (ligado) {
-            System.out.println("Selecione os músculos relacionados com o exercício (pressione '0' para parar):");
             MusculoDAO.listarMusculosDAO();
+            System.out.println("Selecione os músculos relacionados com o exercício (pressione '0' para parar):");
             int idMusculo = scanner.nextInt();
             if (idMusculo == 0) {
                 ligado = false;
@@ -83,6 +84,7 @@ public class ControleExercicio {
     private static void excluirExercicio() {
         Scanner scanner = new Scanner(System.in);
         int id;
+        ExercicioDAO.listarExerciciosDAO();
         System.out.println("Digite o ID do exercício que deseja excluir:");
         id = scanner.nextInt();
         ExercicioDAO.excluirDeExercicioMusculosDAO(id);
@@ -91,6 +93,7 @@ public class ControleExercicio {
 
     private static void alterarExercicio() {
         Scanner scanner = new Scanner(System.in);
+        ExercicioDAO.listarExerciciosDAO();
         System.out.println("Digite o ID do exercício que você deseja alterar:");
         int id = scanner.nextInt();
         scanner.nextLine();

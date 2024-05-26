@@ -9,7 +9,36 @@ public class Main {
         Conexao.definicoesDoBanco();
         Scanner scanner = new Scanner(System.in);
         int selecao = 99;
-        while(selecao != 0) {
+        int modo = 99;
+
+        while (modo != 0) {
+            System.out.println();
+            System.out.println("SISTEMA ACADEMIA");
+            System.out.println("Selecione uma opcao:");
+            System.out.println("0. Sair");
+            System.out.println("1. Instrutor");
+            System.out.println("2. Aluno");
+
+            modo = scanner.nextInt();
+
+            switch (modo) {
+                case 1:
+                    opcoesInstrutor();
+                    break;
+                case 2:
+                    opcoesAluno();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    private static void opcoesInstrutor() {
+        Scanner scanner = new Scanner(System.in);
+        int selecao = 99;
+
+        while (selecao != 0) {
+            System.out.println();
             System.out.println("Selecione uma opcao:");
             System.out.println("0. Sair");
             System.out.println("1. Gerenciar alunos");
@@ -18,8 +47,6 @@ public class Main {
             System.out.println("4. Gerenciar músculos");
             System.out.println("5. Gerenciar planos de alunos");
             System.out.println("6. Gerenciar treinos");
-            System.out.println("7. Gerenciar treinos diários");
-            System.out.println("8. Relatórios");
 
             selecao = scanner.nextInt();
 
@@ -42,15 +69,32 @@ public class Main {
                 case 6:
                     ControleTreino.gerenciarTreino();
                     break;
-                case 7:
+                default:
+                    break;
+            }
+        }
+    }
+    private static void opcoesAluno() {
+        Scanner scanner = new Scanner(System.in);
+        int selecao = 99;
+
+        while (selecao != 0) {
+            System.out.println("Selecione uma opcao:");
+            System.out.println("0. Sair");
+            System.out.println("1. Realizar treino");
+            System.out.println("2. Relatórios");
+
+            selecao = scanner.nextInt();
+
+            switch (selecao) {
+                case 1:
                     ControleTreinoDiario.gerenciarTreinoDiario();
                     break;
-                case 8:
+                case 2:
                     ControleRelatorios.gerenciarRelatorios();
                 default:
                     break;
             }
         }
-        scanner.close();
     }
 }

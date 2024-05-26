@@ -1,5 +1,6 @@
 package controle;
 
+import DAO.PlanoDAO;
 import academia.Plano;
 import conexao.Conexao;
 
@@ -24,6 +25,7 @@ public class ControlePlano {
         int selecao = 99;
 
         while(selecao != 0) {
+            System.out.println();
             System.out.println("Selecione uma opção:");
             System.out.println("0. Voltar");
             System.out.println("1. Cadastrar plano");
@@ -66,6 +68,7 @@ public class ControlePlano {
 
     private static void alterarPlano() {
         Scanner scanner = new Scanner(System.in);
+        PlanoDAO.listarPlanoDAO();
         System.out.println("Digite o ID do plano que deseja alterar:");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -79,7 +82,7 @@ public class ControlePlano {
     private static void excluirPlano() {
         Scanner scanner = new Scanner(System.in);
         int id;
-
+        PlanoDAO.listarPlanoDAO();
         System.out.println("Digite o ID do plano que deseja excluir:");
         id = scanner.nextInt();
         excluirPlanoDAO(id);

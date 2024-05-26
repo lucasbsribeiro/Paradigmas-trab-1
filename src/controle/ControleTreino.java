@@ -12,6 +12,7 @@ public class ControleTreino {
         int selecao = 99;
 
         while (selecao != 0) {
+            System.out.println();
             System.out.println("Selecione uma opção:");
             System.out.println("0. Sair");
             System.out.println("1. Cadastrar treino");
@@ -49,8 +50,8 @@ public class ControleTreino {
         treino.setIdTreino(TreinoDAO.encontraTreinoDAO(treino));
 
         while (ligado) {
-            System.out.println("Selecione os IDs dos exercícios do treino (pressione '0' para parar):");
             ExercicioDAO.listarExerciciosDAO();
+            System.out.println("Selecione os IDs dos exercícios do treino (pressione '0' para parar):");
             int idExercicio = scanner.nextInt();
             if (idExercicio == 0) {
                 ligado = false;
@@ -64,6 +65,7 @@ public class ControleTreino {
     private static void excluirTreino() {
         Scanner scanner = new Scanner(System.in);
         int id;
+        TreinoDAO.listarTreinosDAO();
         System.out.println("Digite o ID do treino que deseja excluir:");
         id = scanner.nextInt();
         TreinoDAO.excluirDeTreinoExerciciosDAO(id);
