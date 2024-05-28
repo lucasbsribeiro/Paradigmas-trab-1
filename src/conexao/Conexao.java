@@ -2,9 +2,6 @@ package conexao;
 
 import java.sql.*;
 
-import academia.Aluno;
-import academia.Plano;
-
 public class Conexao {
     private static final String url = "jdbc:mysql://localhost:3306/academia";
     private static final String user = "root";
@@ -14,7 +11,22 @@ public class Conexao {
 
     public static Connection getConn() {
         try {
+            if(conn.isClosed() || conn == null) {
+                conn = DriverManager.getConnection(url, user, password);
+                return conn;
+            } else {
+                return conn;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Connection getConnFirst(){
+        try {
             if(conn == null) {
+                String url = "jdbc:mysql://localhost:3306";
                 conn = DriverManager.getConnection(url, user, password);
                 return conn;
             } else {
@@ -29,12 +41,17 @@ public class Conexao {
     public static void definicoesDoBanco(){
         String sql;
         try {//Cria database
-            Connection conn = getConn();
+            Connection conn = getConnFirst();
             Statement sqlStatement = conn.createStatement();
-            sql = "CREATE DATABASE academia";
-            sqlStatement.executeUpdate(sql);
-            System.out.println("Database criado");
-
+            try{
+                sql = "CREATE DATABASE academia";
+                sqlStatement.executeUpdate(sql);
+                System.out.println("Database criado");
+            }
+            catch (SQLException e){
+                System.out.println(e);
+            }
+            conn.close();
         }
         catch(SQLException e){
             System.out.println(e);
