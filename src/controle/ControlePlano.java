@@ -32,7 +32,6 @@ public class ControlePlano {
             System.out.println("2. Alterar plano");
             System.out.println("3. Excluir plano");
             System.out.println("4. Listar planos");
-            System.out.println("5. Voltar ao menu");
 
             selecao = scanner.nextInt();
 
@@ -58,7 +57,7 @@ public class ControlePlano {
         System.out.println("Digite o nome do novo plano:");
         String nome = scanner.nextLine();
 
-        System.out.println("Digite o valor mensal do novo plano:");
+        System.out.println("Digite o valor mensal do novo plano:" );
         String valorMensal = scanner.nextLine();
 
         Plano plano = new Plano(nome, valorMensal);

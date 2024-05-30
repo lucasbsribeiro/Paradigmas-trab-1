@@ -5,7 +5,7 @@ import java.sql.*;
 public class Conexao {
     private static final String url = "jdbc:mysql://localhost:3306/academia";
     private static final String user = "root";
-    private static final String password = "paradigmas123"; //COLOCAR SENHA CORRETA
+    private static final String password = "root"; //COLOCAR SENHA CORRETA
 
     private static Connection conn;
 

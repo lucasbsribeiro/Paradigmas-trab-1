@@ -46,8 +46,6 @@ public class ControleAluno {
                         deletaAluno();
                     case 5:
                         atualizaAluno();
-                    case 6:
-                        atribuirPlano();
                 }
         }
     }
@@ -59,11 +57,11 @@ public class ControleAluno {
 		String aniversario;
 
 		System.out.println("Nome do aluno: ");
-		nome = entrada.next();
-		System.out.println("Cpf de "+nome+": ");
-		cpf = entrada.next();
+		nome = entrada.nextLine();
+		System.out.println("CPF de "+nome+": ");
+		cpf = entrada.nextLine();
 		System.out.println("Data de nascimento (YYYY-MM-DD) de "+nome+": ");
-		aniversario  = entrada.next();
+		aniversario  = entrada.nextLine();
 
 		Date aniverDate = Date.valueOf(aniversario);
 
