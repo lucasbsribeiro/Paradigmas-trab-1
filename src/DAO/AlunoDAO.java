@@ -25,6 +25,28 @@ public class AlunoDAO {
             System.out.println(e);
         }
     }
+    public static void listarTodosAlunosDAO() {
+        System.out.println("Alunos cadastrados:");
+        String sql = "SELECT * from academia.aluno;";
+        ResultSet result;
+
+        try{
+            Connection conn = Conexao.getConn();
+            Statement sqlStatement = conn.createStatement();
+
+            result = sqlStatement.executeQuery(sql);
+            while(result.next()){
+                String cpf = String.valueOf(result.getInt("cpf"));
+                String nome = String.valueOf(result.getString("nome"));
+                System.out.println("CPF: "+cpf+", Nome: "+nome);
+            }
+            sqlStatement.close();
+        }
+        catch (SQLException e){
+            System.out.println(e);
+            result = null;
+        }
+    }
     public static void listarAlunoCpf(String cpf){
         String sql = "SELECT * FROM academia.aluno where cpf = '"+cpf+"';";
         ResultSet result;
@@ -39,6 +61,7 @@ public class AlunoDAO {
                     Date aniversario = result.getDate("aniversario");
                     Aluno aluno = new Aluno(nome, cpf, aniversario);
                     aluno.printaAluno();
+                    PlanoAlunoDAO.encontraDadosPlano(cpf);
                 }
             }
             else{
@@ -64,6 +87,7 @@ public class AlunoDAO {
                     Date aniversario = result.getDate("aniversario");
                     Aluno aluno = new Aluno(nome, cpf, aniversario);
                     aluno.printaAluno();
+                    PlanoAlunoDAO.encontraDadosPlano(cpf);
                 }
             }
             else{

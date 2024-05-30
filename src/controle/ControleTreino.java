@@ -4,6 +4,7 @@ import DAO.MusculoDAO;
 import DAO.TreinoDAO;
 import academia.Treino;
 
+import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class ControleTreino {
@@ -18,6 +19,7 @@ public class ControleTreino {
             System.out.println("1. Cadastrar treino");
             System.out.println("2. Excluir treino");
             System.out.println("3. Listar treinos");
+            System.out.println("4. Visualizar informações do treino");
 
             selecao = scanner.nextInt();
 
@@ -30,6 +32,9 @@ public class ControleTreino {
                     break;
                 case 3:
                     TreinoDAO.listarTreinosDAO();
+                    break;
+                case 4:
+                    visualizarTreino();
                     break;
                 default:
                     break;
@@ -60,6 +65,22 @@ public class ControleTreino {
                 TreinoDAO.inserirRelacaoTreinoExerciciosDAO(treino, idExercicio);
             }
             //scanner.close();
+        }
+    }
+    private static void visualizarTreino() {
+        Scanner scanner = new Scanner(System.in);
+        int id;
+        System.out.println("Digite o ID do treino que deseja visualizar:");
+        id = scanner.nextInt();
+        ResultSet idExercicios = ExercicioDAO.encontraExerciciosTreino(id);
+        try {
+            while (idExercicios.next()) {
+                int idExercicio = idExercicios.getInt("id_exercicio");
+                ExercicioDAO.listarDadosExercicio(idExercicio);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
         }
     }
     private static void excluirTreino() {

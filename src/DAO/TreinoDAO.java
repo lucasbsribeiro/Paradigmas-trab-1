@@ -1,5 +1,6 @@
 package DAO;
 
+import academia.Aluno;
 import academia.Exercicio;
 import academia.Musculo;
 import academia.Treino;
@@ -111,5 +112,5 @@ public class TreinoDAO {
             result = null;
         }
     }
-
 }
+

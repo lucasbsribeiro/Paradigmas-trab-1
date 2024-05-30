@@ -61,4 +61,19 @@ public class TreinoDiarioDAO {
         }
         return result;
     }
+    public static void excluirDeTreinoDiario(String cpf) {
+        String sql = "DELETE FROM treino_diario WHERE alunoCpf = '"+cpf+"';";
+
+        PreparedStatement statement = null;
+
+        try{
+            statement = Conexao.getConn().prepareStatement(sql);
+            statement.execute();
+            statement.close();
+            System.out.println("Aluno deletado da tabela treino_diario com sucesso.");
+        }
+        catch (SQLException e){
+            System.out.println("Erro ao deletar o aluno.");
+        }
+    }
 }

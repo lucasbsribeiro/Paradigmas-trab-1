@@ -29,28 +29,26 @@ public class PlanoAlunoDAO {
 
     }
 
-    public static ArrayList retornaAlunoPlano(String cpf){
-        String sql = "SELECT cartao, comecoPlano FROM academia.planos_aluno WHERE alunoCpf = '%s'";
+    public static boolean retornaAlunoPlano(String cpf) {
+        String sql = "SELECT comecoPlano, cartao FROM academia.planos_aluno WHERE alunoCpf = '%s'";
         sql = String.format(sql, cpf);
         ResultSet result;
-        ArrayList<String> retornos = new ArrayList<String>();
-        try{
+        try {
             Connection conn = Conexao.getConn();
             Statement sqlStatement = conn.createStatement();
             result = sqlStatement.executeQuery(sql);
-            if(result.next()) {
-                retornos.add(result.getString("cartao"));
-                retornos.add(result.getString("comecoPlano"));
+            if (result.next()) {
+                // Linha encontrada
+                return true;
+            } else {
+                // Nenhuma linha encontrada
+                return false;
             }
-            else{
-                retornos.add(null);
-            }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
-            return null;
+            // Em caso de exceção, considera que não encontrou a linha
+            return false;
         }
-        return retornos;
     }
     public static void deletaAlunoPlano(String cpf){
         String sql = "DELETE FROM planos_aluno WHERE alunoCpf = '%s'";
@@ -59,16 +57,37 @@ public class PlanoAlunoDAO {
             Connection conn = Conexao.getConn();
             Statement sqlStatement = conn.createStatement();
             sqlStatement.execute(sql);
+            System.out.println("Plano deletado de aluno com sucesso.");
         }
         catch (Exception e){
             System.out.println(e);
         }
     }
     public static boolean checaAlunoPlano(String cpf){
-        ArrayList checa = retornaAlunoPlano(cpf);
-        if(checa == null){
+        boolean checa = retornaAlunoPlano(cpf);
+        if(checa == false){
             return false;
         }
         return true;
+    }
+
+    public static void encontraDadosPlano(String cpf) {
+        String sql = "SELECT comecoPlano, codPlano FROM academia.planos_aluno WHERE alunoCpf = '%s'";
+        sql = String.format(sql, cpf);
+        ResultSet result;
+        try {
+            Connection conn = Conexao.getConn();
+            Statement sqlStatement = conn.createStatement();
+            result = sqlStatement.executeQuery(sql);
+
+            while (result.next()) {
+                String comecoPlano = result.getString("comecoPlano");
+                int codPlano = result.getInt("codPlano");
+                System.out.println("Código do plano: " + codPlano);
+                System.out.println("Data de início do plano: " + comecoPlano);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package controle;
 
 import DAO.*;
+import academia.Aluno;
 import conexao.Conexao;
 
 import java.sql.Date;
@@ -35,7 +36,9 @@ public class ControleTreinoDiario {
         int personalizado;
         int idExAtual;
         int continuarTreino =2;
-        System.out.println("Qual o cpf do aluno?");
+
+        AlunoDAO.listarTodosAlunosDAO();
+        System.out.println("Qual o CPF do aluno?");
         String cpf = scanner.nextLine();
 
         if(!AlunoDAO.checaAluno(cpf)){
@@ -50,8 +53,8 @@ public class ControleTreinoDiario {
 
         TreinoDiarioDAO.cadastraTreino(cpf, dia);
 
-        System.out.println("Qual o ID do treino desejado?");
         TreinoDAO.listarTreinosDAO();
+        System.out.println("Qual o ID do treino desejado?");
         int id_treino = scanner.nextInt(); //FAZER CONFERIR SE IDTREINO EXISTE
 
         ResultSet idExercicios = ExercicioDAO.encontraExerciciosTreino(id_treino);

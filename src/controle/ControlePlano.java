@@ -84,6 +84,7 @@ public class ControlePlano {
         PlanoDAO.listarPlanoDAO();
         System.out.println("Digite o ID do plano que deseja excluir:");
         id = scanner.nextInt();
+        excluirDePlanosAluno(id);
         excluirPlanoDAO(id);
     }
 
@@ -101,5 +102,6 @@ public class ControlePlano {
         catch(Exception e){
             System.out.println(e);
         }
+
     }
 }

@@ -182,5 +182,19 @@ public class ExercicioDAO
         return carga;
 
     }
+    public static void excluirDeExercicioAluno(String cpf) {
+            String sql = "DELETE FROM exercicio_aluno WHERE alunoCpf = '"+cpf+"';";
 
+            PreparedStatement statement = null;
+
+            try{
+                statement = Conexao.getConn().prepareStatement(sql);
+                statement.execute();
+                statement.close();
+                System.out.println("Aluno deletado da tabela exercicios_aluno com sucesso.");
+            }
+            catch (SQLException e){
+                System.out.println("Erro ao deletar o aluno.");
+            }
+        }
 }

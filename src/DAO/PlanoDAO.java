@@ -38,6 +38,19 @@ public class PlanoDAO {
             System.out.println(e);
         }
     }
+
+    public static void excluirDePlanosAluno(int id) {
+        String sql = "DELETE FROM planos_aluno WHERE codPlano ="+String.valueOf(id)+";";
+        try{
+            Connection conn = Conexao.getConn();
+            Statement sqlStatement = conn.createStatement();
+            sqlStatement.execute(sql);
+            System.out.println("Relação plano-aluno deletado com sucesso.");
+        }
+        catch (SQLException e){
+            System.out.println(e);
+        }
+    }
     public static void excluirPlanoDAO(int id){
         String sql = "DELETE FROM planos WHERE code ="+String.valueOf(id)+";";
         try{

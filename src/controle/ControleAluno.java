@@ -1,7 +1,9 @@
 package controle;
 
 import DAO.AlunoDAO;
+import DAO.ExercicioDAO;
 import DAO.PlanoAlunoDAO;
+import DAO.TreinoDiarioDAO;
 import academia.Aluno;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -24,9 +26,9 @@ public class ControleAluno {
             System.out.println("1. Cadastrar aluno");
             System.out.println("2. Busca por CPF");
             System.out.println("3. Busca por nome");
-            System.out.println("4. Deletar aluno");
-            System.out.println("5. Atualizar dados pessoais");
-            System.out.println("6. Cadastrar plano para aluno");
+            System.out.println("4. Listar alunos");
+            System.out.println("5. Deletar aluno");
+            System.out.println("6. Atualizar dados pessoais");
 
             Scanner scanner = new Scanner(System.in);
 
@@ -43,9 +45,14 @@ public class ControleAluno {
                         buscaAlunoNome();
                         break;
                     case 4:
-                        deletaAluno();
+                        listarTodosAlunosDAO();
+                        break;
                     case 5:
+                        deletaAluno();
+                        break;
+                    case 6:
                         atualizaAluno();
+                        break;
                 }
         }
     }
@@ -85,6 +92,9 @@ public class ControleAluno {
         System.out.println("Qual o CPF do aluno que será deletado?");
         Scanner scanner = new Scanner(System.in);
         String nome = scanner.nextLine();
+        ExercicioDAO.excluirDeExercicioAluno(nome);
+        TreinoDiarioDAO.excluirDeTreinoDiario(nome);
+        deletaAlunoPlano(nome);
         DAO.AlunoDAO.deleteAluno(nome);
     }
     private static void atualizaAluno(){
@@ -98,9 +108,7 @@ public class ControleAluno {
         Date aniversario = Date.valueOf(niver);
         DAO.AlunoDAO.atualizaAluno(cpf, nome, aniversario);
     }
-    private static void atribuirPlano(){
 
-    }
 }
 
 

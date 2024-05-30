@@ -1,5 +1,6 @@
 package controle;
 
+import DAO.AlunoDAO;
 import DAO.ExercicioDAO;
 import DAO.TreinoDAO;
 import DAO.TreinoDiarioDAO;
@@ -34,7 +35,8 @@ public class ControleRelatorios {
     private static void presencas(){ //FAZER dia1 AVANCAR NAO FUNCIONANDO
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Qual o cpf do aluno?");
+        AlunoDAO.listarTodosAlunosDAO();
+        System.out.println("Qual o CPF do aluno?");
         String cpf = scanner.nextLine();
 
         System.out.println("Data de inicio:");

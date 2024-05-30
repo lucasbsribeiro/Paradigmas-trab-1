@@ -26,8 +26,6 @@ public class ControleMusculo {
             System.out.println("1. Cadastrar músculo");
             System.out.println("2. Excluir músculo");
             System.out.println("3. Listar músculos");
-            System.out.println("4. Voltar ao menu");
-
             selecao = scanner.nextInt();
 
             switch (selecao) {

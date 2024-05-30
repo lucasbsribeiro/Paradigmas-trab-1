@@ -57,8 +57,8 @@ public class ControleAlunoPlano {
                 return;
             }
 
-            ArrayList<String> dados = retornaAlunoPlano(cpf);
-            if(dados != null){
+            boolean dados = retornaAlunoPlano(cpf);
+            if(dados == true){
                 System.out.println("O aluno já possui planos cadastrados.");
                 return;
             }
